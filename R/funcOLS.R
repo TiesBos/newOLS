@@ -2,8 +2,9 @@
 #'
 #' @param formula An object of class \link[stats:formula]{stats::formula}
 #' @param data an optional data frame, list or environment containing the variables in the model.
+#' @param intercept logical expression whether an intercept should be included in the linear model.
 #'
-#' @return
+#' @return A numeric vector including the coefficient
 #' @export
 #'
 #' @examples
@@ -21,6 +22,10 @@
 #' df <- data.frame(y,X1, X2)
 #' colnames(df) <- c("Y", "A", "B")
 #' beta_OLS3 <- olsFunc(Y~A+B, data=df)
-olsFunc <- function(formula, data=NULL){
+olsFunc <- function(formula, data=NULL, intercept=TRUE){
+  all.vars(formula)
 
+  if(is.null(data)){
+    h
+  }
 }
