@@ -26,7 +26,7 @@ olsFunc <- function(formula, data=NULL, intercept=TRUE){
   var_names <- all.vars(formula)
 
   if(is.null(data)){
-    vars <- do.call(cbind,lapply(var_names, get))
+    vars <- do.call(cbind,mget(var_names, envir = .GlobalEnv))
   } else{
     vars <- data[, var_names]
   }
