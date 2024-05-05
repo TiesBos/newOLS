@@ -91,6 +91,6 @@ summary.newOLS <- function(obj){
   colnames(results.df) <- c("Estimate", "Standard Deviation",
                             "T-statistic ", "p-value")
 
-  return(round(results.df, 10))
+  return(round(results.df, 6))
 }
 
