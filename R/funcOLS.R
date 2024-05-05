@@ -31,16 +31,17 @@ olsFunc <- function(formula, data=NULL, intercept=TRUE){
     vars <- data[, var_names]
   }
 
-  y <- vars[,1]
+  y <- as.matrix(vars[,1])
   if(intercept){
-    X <- cbind(1, vars[,-1])
+    X <- as.matrix(cbind(1, vars[,-1]))
     colnames(X) <- c("intercept", var_names[-1])
   } else {
-    X <- vars[,-1]
+    X <- as.matrix(vars[,-1])
     colnames(X) <- c(var_names[-1])
   }
 
   beta <- solve(t(X)%*%X)%*%t(X)%*%y
   rownames(beta) <- colnames(X)
+  colnames(beta) <- c("estimates")
   return(beta)
 }
