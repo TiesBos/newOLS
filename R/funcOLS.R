@@ -87,6 +87,7 @@ olsFunc <- function(formula, data=NULL, intercept=TRUE){
 #' @return a dataframe with all main results of the newOLS object
 #' @export
 #'
+#' @method summary newOLS
 #' @examples
 #' X1 <- rnorm(100)
 #' X2 <- rnorm(100)
