@@ -55,7 +55,7 @@ olsFunc <- function(formula, data=NULL, intercept=TRUE){
   T.stats <- sqrt(n)*(beta)/sqrt(coef.var)
 
   # The p-values
-  p.vals <- 2 * pt(abs(T.stats), df=(n-p), lower.tail = FALSE)
+  p.vals <- 2 * stats::pt(abs(T.stats), df=(n-p), lower.tail = FALSE)
 
 
   results <- structure(list(estimates = beta,
