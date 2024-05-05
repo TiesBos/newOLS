@@ -24,7 +24,6 @@
 #' beta_OLS3 <- olsFunc(Y~A+B, data=df)
 olsFunc <- function(formula, data=NULL, intercept=TRUE){
   var_names <- all.vars(formula)
-  print(var_names)
 
 
   if(is.null(data)){
