@@ -17,7 +17,10 @@ olsFunc(formula, data = NULL, intercept = TRUE)
 An object of class "newOLS" including the OLS estimates, standard devations, T-statistics and p-values.
 }
 \description{
-Function for OLS Estimators
+A new function to perform OLS estimation
+}
+\details{
+\deqn{(X^\prime X)^{-1} X^\prime y}
 }
 \examples{
 n <- 100
@@ -34,4 +37,8 @@ beta_OLS2 <- olsFunc(y~X1+X2)
 df <- data.frame(y,X1, X2)
 colnames(df) <- c("Y", "A", "B")
 beta_OLS3 <- olsFunc(Y~A+B, data=df)
+
+}
+\author{
+Ties
 }
