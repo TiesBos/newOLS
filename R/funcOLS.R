@@ -24,10 +24,20 @@
 #' beta_OLS3 <- olsFunc(Y~A+B, data=df)
 olsFunc <- function(formula, data=NULL, intercept=TRUE){
   var_names <- all.vars(formula)
+  print(var_names)
+
 
   if(is.null(data)){
-    vars <- do.call(cbind,mget(var_names, envir = .GlobalEnv))
-  } else{
+    variables <- mget(var_names, envir = .GlobalEnv)
+    vars <- do.call(cbind, variables)
+    if(is.null(colnames(vars[2:ncol(vars)]))){
+      var_names <- c(var_names[1], paste0("X", 1:(ncol(vars)-1)))
+    }
+
+  } else {
+    if(var_names[2]=="."){
+      var_names <- c(var_names[1], colnames(data)[colnames(data) != (var_names[1])])
+    }
     vars <- data[, var_names]
   }
 
