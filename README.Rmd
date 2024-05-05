@@ -40,3 +40,11 @@ ols <- olsFunc(y~X1+X2)
 summary(ols)
 
 ```
+Or alternatively
+```{r}
+df <- data.frame(y,X1, X2)
+colnames(df) <- c("Y", "A", "B")
+ols2 <- olsFunc(Y~A+B, data=df)
+
+summary(ols2)
+```
