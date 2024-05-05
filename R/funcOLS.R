@@ -4,7 +4,7 @@
 #' @param data an optional data frame, list or environment containing the variables in the model.
 #' @param intercept logical expression whether an intercept should be included in the linear model.
 #'
-#' @return A numeric vector including the coefficient
+#' @return An object of class "newOLS" including the OLS estimates, standard devations, T-statistics and p-values.
 #' @export
 #'
 #' @examples
@@ -40,8 +40,57 @@ olsFunc <- function(formula, data=NULL, intercept=TRUE){
     colnames(X) <- c(var_names[-1])
   }
 
+  # The Estimates:
   beta <- solve(t(X)%*%X)%*%t(X)%*%y
-  rownames(beta) <- colnames(X)
-  colnames(beta) <- c("estimates")
-  return(beta)
+
+  # The Standard Deviation:
+  n <- nrow(X)
+  p <- ncol(X)
+  resid <- y-X%*%beta
+  sigma.sq.hat <- as.numeric(t(resid)%*%resid/(n-p))
+  var.mat <- solve(t(X)%*%X)*sigma.sq.hat
+  coef.var <- diag(var.mat)
+
+  # The T-Statistic:
+  T.stats <- sqrt(n)*(beta)/sqrt(coef.var)
+
+  # The p-values
+  p.vals <- 2 * pt(abs(T.stats), df=(n-p), lower.tail = FALSE)
+
+
+  results <- structure(list(estimates = beta,
+                       covariance.matrix = var.mat,
+                       T.stat = T.stats,
+                       p.values = p.vals,
+                       var_names = colnames(X),
+                       residuals = resid,
+                       formula = formula),
+                       class= "newOLS")
+
+  return(results)
 }
+
+
+#' Summary function for newOLS objects
+#'
+#' @param obj summary method for class "newOLS"
+#'
+#' @return a dataframe with all main results of the newOLS object
+#' @export
+#'
+#' @examples
+#' X1 <- rnorm(100)
+#' X2 <- rnorm(100)
+#' y <- 1*X1+rnorm(100)
+#' ols <- olsFunc(y~X1+X2)
+#' summary(ols)
+summary.newOLS <- function(obj){
+  std.dev <- diag(obj$covariance.matrix)
+  results.df <- data.frame(obj$estimates, std.dev, obj$T.stat, obj$p.values)
+  rownames(results.df) <- obj$var_names
+  colnames(results.df) <- c("Estimate", "Standard Deviation",
+                            "T-statistic ", "p-value")
+
+  return(round(results.df, 10))
+}
+

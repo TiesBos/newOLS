@@ -14,7 +14,7 @@ olsFunc(formula, data = NULL, intercept = TRUE)
 \item{intercept}{logical expression whether an intercept should be included in the linear model.}
 }
 \value{
-A numeric vector including the coefficient
+An object of class "newOLS" including the OLS estimates, standard devations, T-statistics and p-values.
 }
 \description{
 Function for OLS Estimators
