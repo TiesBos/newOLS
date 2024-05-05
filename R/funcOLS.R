@@ -14,10 +14,13 @@
 #'
 #' n <- 100
 #' X1 <- rnorm(n)
-#' x2 <- rnorm(n)
+#' X2 <- rnorm(n)
 #' y <- 1.5*X1 + 1.5\*X2+rnorm(n)
+#' beta_OLS2 <- olsFunc(y~X1+X2)
+#'
 #' df <- data.frame(y,X1, X2)
-#' beta_OLS3 <- olsFunc(y~X1+X2, data=df)
+#' colnames(df) <- c("Y", "A", "B")
+#' beta_OLS3 <- olsFunc(Y~A+B, data=df)
 olsFunc <- function(formula, data=NULL){
 
 }
