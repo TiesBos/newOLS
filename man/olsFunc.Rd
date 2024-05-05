@@ -4,12 +4,17 @@
 \alias{olsFunc}
 \title{Function for OLS Estimators}
 \usage{
-olsFunc(formula, data = NULL)
+olsFunc(formula, data = NULL, intercept = TRUE)
 }
 \arguments{
 \item{formula}{An object of class \link[stats:formula]{stats::formula}}
 
 \item{data}{an optional data frame, list or environment containing the variables in the model.}
+
+\item{intercept}{logical expression whether an intercept should be included in the linear model.}
+}
+\value{
+A numeric vector including the coefficient
 }
 \description{
 Function for OLS Estimators
@@ -23,7 +28,7 @@ beta_OLS <- olsFunc(y~X)
 n <- 100
 X1 <- rnorm(n)
 X2 <- rnorm(n)
-y <- 1.5*X1 + 1.5\*X2+rnorm(n)
+y <- X1 + 1.5*X2+rnorm(n)
 beta_OLS2 <- olsFunc(y~X1+X2)
 
 df <- data.frame(y,X1, X2)
